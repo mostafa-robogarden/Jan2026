@@ -1,0 +1,251 @@
+:host {
+  --chat-bg: #0b141a;
+  --sidebar-bg: #111b21;
+  --panel-bg: #202c33;
+  --panel-soft: #1f2c34;
+  --border-color: #2a3942;
+  --text-main: #e9edef;
+  --text-soft: #8696a0;
+  --bubble-me: #005c4b;
+  --bubble-them: #202c33;
+  --input-bg: #2a3942;
+  --accent: #00a884;
+}
+
+.chat-layout {
+  display: flex;
+  height: 100%;
+  background: var(--chat-bg);
+  color: var(--text-main);
+}
+
+.contacts-panel {
+  width: 320px;
+  min-width: 320px;
+  border-right: 1px solid var(--border-color);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 16px 8px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.contacts-panel ion-searchbar {
+  --background: var(--input-bg);
+  --color: var(--text-main);
+  --placeholder-color: var(--text-soft);
+  --icon-color: var(--text-soft);
+  --clear-button-color: var(--text-soft);
+  padding: 0 8px 8px;
+}
+
+.contacts-panel ion-list {
+  background: transparent;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.contacts-panel ion-item {
+  --background: transparent;
+  --color: var(--text-main);
+  --border-color: transparent;
+  --inner-border-width: 0;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --min-height: 72px;
+}
+
+.contacts-panel ion-item h3 {
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.contacts-panel ion-item p {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.contacts-panel ion-item.active-contact {
+  --background: #202c33;
+}
+
+.contacts-panel ion-item:hover {
+  --background: #182229;
+}
+
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--chat-bg);
+}
+
+.chat-header {
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 16px;
+}
+
+.chat-contact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-contact h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.chat-contact p {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 16px;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 30%),
+    var(--chat-bg);
+}
+
+.message-row {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.message-row.mine {
+  justify-content: flex-end;
+}
+
+.message-row.theirs {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.message-row.mine .message-bubble {
+  background: var(--bubble-me);
+  color: #eafff8;
+  border-bottom-right-radius: 6px;
+}
+
+.message-row.theirs .message-bubble {
+  background: var(--bubble-them);
+  color: var(--text-main);
+  border-bottom-left-radius: 6px;
+}
+
+.message-text {
+  font-size: 0.96rem;
+  line-height: 1.4;
+}
+
+.message-time {
+  font-size: 0.72rem;
+  color: #b7c4cc;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.message-input-bar {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: var(--panel-bg);
+  border-top: 1px solid var(--border-color);
+  align-items: center;
+}
+
+.message-input-bar ion-input {
+  flex: 1;
+  --background: var(--input-bg);
+  --color: var(--text-main);
+  --placeholder-color: var(--text-soft);
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --border-radius: 14px;
+}
+
+.message-input-bar ion-input::part(native) {
+  color: var(--text-main);
+}
+
+.message-input-bar ion-input::part(placeholder) {
+  color: var(--text-soft);
+}
+
+.message-input-bar ion-button {
+  --background: var(--accent);
+  --background-hover: #06ba92;
+  --background-activated: #008f70;
+  --color: #081c15;
+  font-weight: 700;
+}
+
+.dark-toolbar {
+  --background: #111b21;
+  --color: #e9edef;
+}
+
+@media (max-width: 768px) {
+  .chat-layout {
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .contacts-panel {
+    width: 100%;
+    min-width: 100%;
+    height: 280px;
+    max-height: 40%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .chat-panel {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .messages-area {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}

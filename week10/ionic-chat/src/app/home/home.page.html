@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar class="dark-toolbar" color="dark">
+    <ion-title>Chat App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="chat-content">
+  <div class="chat-layout">
+
+    <aside class="contacts-panel">
+      <div class="panel-header">
+        <h2>Chats</h2>
+      </div>
+
+      <ion-searchbar
+        [(ngModel)]="searchTerm"
+        placeholder="Search contacts">
+      </ion-searchbar>
+
+      <ion-list>
+        <ion-item
+          button
+          detail="false"
+          *ngFor="let contact of filteredContacts"
+          (click)="selectContact(contact)"
+          [class.active-contact]="selectedContact.id === contact.id">
+
+          <ion-avatar slot="start">
+            <img [src]="contact.avatar" [alt]="contact.name" />
+          </ion-avatar>
+
+          <ion-label>
+            <h3>{{ contact.name }}</h3>
+            <p>{{ contact.status }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </aside>
+
+    <section class="chat-panel">
+      <div class="chat-header">
+        <div class="chat-contact">
+          <img [src]="selectedContact.avatar" [alt]="selectedContact.name" class="chat-avatar" />
+          <div>
+            <h3>{{ selectedContact.name }}</h3>
+            <p>{{ selectedContact.status }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="messages-area">
+        <div
+          *ngFor="let message of activeMessages"
+          class="message-row"
+          [class.mine]="message.sender === 'me'"
+          [class.theirs]="message.sender === 'them'">
+
+          <div class="message-bubble">
+            <div class="message-text">{{ message.text }}</div>
+            <div class="message-time">{{ message.time }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="message-input-bar">
+        <ion-input
+          [(ngModel)]="newMessage"
+          placeholder="Type a message..."
+          fill="outline"
+          (keyup.enter)="sendMessage()">
+        </ion-input>
+
+        <ion-button (click)="sendMessage()">
+          Send
+        </ion-button>
+      </div>
+    </section>
+
+  </div>
+</ion-content>
