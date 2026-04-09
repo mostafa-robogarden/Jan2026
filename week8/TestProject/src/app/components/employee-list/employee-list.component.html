@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Employees</h1>
+  <a routerLink="/employees/add" class="btn btn-success">Add Employee</a>
+</div>
+
+@if (loading) {
+  <div class="alert alert-info">Loading...</div>
+}
+
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+}
+
+@if (!loading && !error) {
+  <app-data-table
+    [title]="'Employees Table'"
+    [data]="employees"
+    [columns]="columns"
+    [enablePagination]="true"
+    [pageSize]="5"
+    [showEdit]="true"
+    [showDelete]="true"
+    (editClicked)="handleEdit($event)"
+    (deleteClicked)="handleDelete($event)">
+  </app-data-table>
+}

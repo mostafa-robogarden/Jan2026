@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Username"
+        labelPlacement="stacked"
+        [value]="username"
+        (ionInput)="onUsernameInput($event)"
+        placeholder="Enter username">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Email"
+        labelPlacement="stacked"
+        type="email"
+        [value]="email"
+        (ionInput)="onEmailInput($event)"
+        placeholder="Enter email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Notifications</ion-label>
+      <ion-toggle
+        [checked]="notifications"
+        (ionChange)="onNotificationsChange($event)">
+      </ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="saveSettings()">
+  Save Settings
+</ion-button>
+</ion-content>

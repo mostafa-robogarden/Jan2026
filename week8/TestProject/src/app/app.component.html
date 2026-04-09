@@ -1,0 +1,15 @@
+<div class="container py-4">
+  <nav class="mb-4 d-flex gap-2">
+    <a routerLink="/employees" class="btn btn-outline-primary">Employees</a>
+
+    @if (!auth.isLoggedIn()) {
+      <a routerLink="/login" class="btn btn-primary">Login</a>
+    }
+
+    @if (auth.isLoggedIn()) {
+      <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+    }
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

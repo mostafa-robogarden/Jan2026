@@ -1,0 +1,1 @@
+SELECT username, passwordHash FROM employee INNER JOIN user ON emplioyee.userId = user.id WHERE employee.id = 1;

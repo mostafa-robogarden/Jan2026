@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Frontend for Node + MySQL API</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    h1 { margin-bottom: 8px; }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 14px; flex: 1; min-width: 280px; }
+    label { display:block; margin-top: 10px; font-size: 14px; }
+    input, select { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 10px 12px; border: 0; border-radius: 8px; cursor: pointer; margin-top: 12px; }
+    button.primary { background: #111; color: #fff; }
+    button.secondary { background: #eee; }
+    pre { background: #0b1020; color: #d7e1ff; padding: 12px; border-radius: 10px; overflow:auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align:left; }
+    .muted { color: #666; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>Frontend → API Demo</h1>
+  <p class="muted">
+    Start your backend first: <code>node index.cleaned.js</code> then keep it running.
+  </p>
+
+  <div class="row">
+    <div class="card">
+      <h2>1) List Employees</h2>
+      <button class="secondary" id="btnLoad">Load employees</button>
+      <div id="employees"></div>
+    </div>
+
+    <div class="card">
+      <h2>2) Create Employee</h2>
+      <label>Username</label>
+      <input id="createUsername" placeholder="e.g. sara" />
+      <label>Password</label>
+      <input id="createPassword" type="password" placeholder="e.g. 1234" />
+      <label>Role</label>
+      <select id="createRole">
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+      </select>
+      <button class="primary" id="btnCreate">Create</button>
+    </div>
+
+    <div class="card">
+      <h2>3) Login</h2>
+      <label>Username</label>
+      <input id="loginUsername" placeholder="e.g. sara" />
+      <label>Password</label>
+      <input id="loginPassword" type="password" placeholder="e.g. 1234" />
+      <button class="primary" id="btnLogin">Login</button>
+    </div>
+  </div>
+
+  <h2>Response</h2>
+  <pre id="output">{}</pre>
+
+  <script src="./app.js"></script>
+</body>
+</html>
