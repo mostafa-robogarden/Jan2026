@@ -15,7 +15,9 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
+import { EmailComposer } from 'capacitor-email-composer';
 import { CommonModule } from '@angular/common';
+import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
 
 interface Contact {
   id: number;
@@ -57,6 +59,29 @@ export class HomePage {
   searchTerm = '';
   newMessage = '';
 
+
+  async openEmail() {
+    const hasAccount = await EmailComposer.hasAccount();
+
+    if (!hasAccount) {
+      console.log('No email account available');
+      return;
+    }
+
+    await EmailComposer.open({
+      to: ['support@example.com'],
+      subject: 'Support Request',
+      body: 'Hello, I need help with...',
+      isHtml: false
+    });
+  }
+  async openAppSettings() {
+    await NativeSettings.open({
+      optionAndroid: AndroidSettings.ApplicationDetails,
+      optionIOS: IOSSettings.App
+    });
+  }
+
   contacts: Contact[] = [
     {
       id: 1,
@@ -83,9 +108,7 @@ export class HomePage {
       avatar: 'https://i.pravatar.cc/100?img=15'
     }
   ];
-
   selectedContact: Contact = this.contacts[0];
-
   conversations: Record<number, Message[]> = {
     1: [
       { sender: 'them', text: 'Hey! How is the app going?', time: '10:12 AM' },
