@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { EmailComposer } from 'capacitor-email-composer';
 import { CommonModule } from '@angular/common';
 import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { SmsManager } from '@byteowls/capacitor-sms';
 
 interface Contact {
   id: number;
@@ -81,7 +83,26 @@ export class HomePage {
       optionIOS: IOSSettings.App
     });
   }
+  async sendReminder() {
+  await LocalNotifications.requestPermissions();
 
+  await LocalNotifications.schedule({
+      notifications: [
+        {
+          id: 1,
+          title: 'Study Reminder',
+          body: 'Time to review your Ionic lesson.',
+          schedule: { at: new Date(Date.now() + 5000) }
+        }
+      ]
+    });
+  }
+  async sendSms() {
+  await SmsManager.send({
+    numbers: ['0123456789'],
+    text: 'Hello from Ionic app!'
+  });
+}
   contacts: Contact[] = [
     {
       id: 1,
