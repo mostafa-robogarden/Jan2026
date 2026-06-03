@@ -5,6 +5,14 @@
 </ion-header>
 
 <ion-content fullscreen class="chat-content">
+  <video controls width="100%">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+    Your browser does not support video.
+  </video>
+  <audio controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    Your browser does not support audio.
+  </audio>
   <div class="chat-layout">
     <aside class="contacts-panel">
       <div class="panel-header">
@@ -69,9 +77,14 @@
           (keyup.enter)="sendMessage()">
         </ion-input>
 
-        <ion-button (click)="sendSms()">
+        <ion-button (click)="takePhoto()">
           Send
         </ion-button>
+        <ion-img
+          *ngIf="photoUrl"
+          [src]="photoUrl"
+          class="ion-margin-top">
+        </ion-img>
       </div>
     </section>
 

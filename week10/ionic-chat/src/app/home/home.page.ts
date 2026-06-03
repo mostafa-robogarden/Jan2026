@@ -12,14 +12,17 @@ import {
   IonText,
   IonInput,
   IonButton,
-  IonIcon
-} from '@ionic/angular/standalone';
+  IonIcon, IonImg } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { EmailComposer } from 'capacitor-email-composer';
 import { CommonModule } from '@angular/common';
 import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { SmsManager } from '@byteowls/capacitor-sms';
+import { Contacts } from '@capacitor-community/contacts';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 interface Contact {
   id: number;
@@ -27,19 +30,17 @@ interface Contact {
   status: string;
   avatar: string;
 }
-
 interface Message {
   sender: 'me' | 'them';
   text: string;
   time: string;
 }
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonImg,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -60,8 +61,46 @@ interface Message {
 export class HomePage {
   searchTerm = '';
   newMessage = '';
+  photoUrl?: string;
+  async loadContacts() {
+    const permission = await Contacts.requestPermissions();
+    if (permission.contacts === 'granted') {
+      const result = await Contacts.getContacts({
+        projection: {
+          name: true,
+          phones: true,
+          image: true
+        }
+      });
+      console.log(result.contacts);
+    }
+  }
+  async shareText() {
+    await Share.share({
+      title: 'Check this out',
+      text: 'Here is something cool from my Ionic app',
+      url: 'https://ionicframework.com',
+      dialogTitle: 'Share with friends',
+    });
+  }
+  async takePhoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera
+    });
 
-
+    this.photoUrl = image.webPath;
+  }
+  async saveFile() {
+    await Filesystem.writeFile({
+      path: '/hello.txt',
+      data: 'Hello from Ionic Capacitor',
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    });
+  }
   async openEmail() {
     const hasAccount = await EmailComposer.hasAccount();
 
@@ -98,11 +137,11 @@ export class HomePage {
     });
   }
   async sendSms() {
-  await SmsManager.send({
-    numbers: ['0123456789'],
-    text: 'Hello from Ionic app!'
-  });
-}
+    await SmsManager.send({
+      numbers: ['0123456789'],
+      text: 'Hello from Ionic app!'
+    });
+  }
   contacts: Contact[] = [
     {
       id: 1,
