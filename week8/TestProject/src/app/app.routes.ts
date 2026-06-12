@@ -10,7 +10,7 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'employees', component: EmployeeListComponent, canActivate: [authGuard] },
+  { path: 'employees', loadComponent: () => import('./components/employee-list/employee-list.component').then(m => m.EmployeeListComponent), canActivate: [authGuard] },
   { path: 'employees/add', component: EmployeeAddComponent, canActivate: [authGuard] },
   { path: 'employees/edit/:username', component: EmployeeEditComponent, canActivate: [authGuard] }
 ];

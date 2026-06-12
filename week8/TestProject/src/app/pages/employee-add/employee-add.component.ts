@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -8,7 +8,8 @@ import { EmployeeService } from '../../services/employee.service';
   selector: 'app-employee-add',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './employee-add.component.html'
+  templateUrl: './employee-add.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeAddComponent {
   private api = inject(EmployeeService);
